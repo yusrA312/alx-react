@@ -6,17 +6,15 @@ import CourseList from "../CourseList/CourseList";
 import Notifications from "../Notifications/Notifications";
 import BodySectionWithMarginBottom from "../BodySection/BodySectionWithMarginBottom";
 import BodySection from "../BodySection/BodySection";
+import { StyleSheet, css } from "aphrodite";
 import PropTypes from "prop-types";
 import { getLatestNotification } from "../utils/utils";
-import { StyleSheet, css } from "aphrodite";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = {
-      displayDrawer: false,
-    };
+    this.state = { displayDrawer: false };
 
     this.handleKeyPress = this.handleKeyPress.bind(this);
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
@@ -62,8 +60,8 @@ class App extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className={css(styles.app)}>
-          <div className={css(styles.headingSection)}>
+        <div className={css(styles.App)}>
+          <div className="heading-section">
             <Notifications
               listNotifications={this.listNotifications}
               displayDrawer={this.state.displayDrawer}
@@ -83,15 +81,25 @@ class App extends React.Component {
           )}
           <BodySection title="News from the school">
             <p>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis at tempora odio, necessitatibus repudiandae reiciendis cum nemo sed asperiores ut molestiae eaque aliquam illo ipsa iste vero dolor voluptates.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis at tempora odio, necessitatibus repudiandae reiciendis cum nemo sed asperiores ut molestiae eaque aliquam illo ipsa
+              iste vero dolor voluptates.
             </p>
           </BodySection>
-          <Footer className={css(styles.footer)} />
+          <Footer />
         </div>
       </React.Fragment>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  App: {
+    height: "100vh",
+    maxWidth: "100vw",
+    position: "relative",
+    fontFamily: "Arial, Helvetica, sans-serif",
+  },
+});
 
 App.defaultProps = {
   isLoggedIn: false,
@@ -105,24 +113,6 @@ App.propTypes = {
   logOut: PropTypes.func,
 };
 
-const styles = StyleSheet.create({
-  app: {
-    fontFamily: "Arial, sans-serif",
-    margin: "0 auto",
-    padding: "0",
-  },
-  headingSection: {
-    borderBottom: "2px solid #e0e0e0",
-  },
-  body: {
-    padding: "20px",
-  },
-  footer: {
-    padding: "20px 0",
-    borderTop: "2px solid #e0e0e0",
-    textAlign: "center",
-    fontStyle: "italic",
-  },
-});
-
 export default App;
+;
+
