@@ -1,17 +1,23 @@
 import { Seq } from 'immutable';
 
-const printBestStudents = (grades) => {
-  // Convert the object to a Seq of key-value pairs
-  const studentsSeq = Seq(grades);
+export default function printBestStudents(studentData) {
+  const studentsSeq = Seq(studentData);
 
-  const bestStudents = studentsSeq.filter(student => student.score >= 70);
+  const filteredStudents = studentsSeq.filter((student) => {
+    return student.score > 70;
+  });
 
-  const formattedStudents = bestStudents.map(student => ({
-    ...student,
-    firstName: student.firstName.charAt(0).toUpperCase() + student.firstName.slice(1),
-    lastName: student.lastName.charAt(0).toUpperCase() + student.lastName.slice(1),
-  }));
+  function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
 
-  console.log(formattedStudents.toObject());
-};
+  const filteredStudentsJS = filteredStudents.toJS();
 
+  Object.keys(filteredStudentsJS).map((studentId) => {
+    filteredStudentsJS[studentId].firstName = capitalizeFirstLetter(filteredStudentsJS[studentId].firstName);
+    filteredStudentsJS[studentId].lastName = capitalizeFirstLetter(filteredStudentsJS[studentId].lastName);
+    return filteredStudentsJS[studentId];
+  });
+
+  console.log(filteredStudentsJS);
+}
